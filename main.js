@@ -141,33 +141,28 @@ let customerEmail;
 //validar correo
 function validateEmail(customerEmail) {
     const emailFilter = /\S+@\S+\.\S+/;
-    let attempts = 0;
-    while (attempts < 3) {
-        customerEmail = prompt(`Para finalizar, por favor indique su correo para confirmar el pago y los datos de acceso a su cuenta en Captain's Cache Hosting`).toLocaleLowerCase();
-        
-        if (customerEmail.match(emailFilter)) {
-            alert(`${customerName}, el correo ha sido enviado a ${customerEmail}. Gracias por tu compra!`);
-            break;
-        } else {
-            attempts++;
-            if (attempts < 3) {
-              alert(`Por favor, ingresa un correo válido. Intento ${attempts} de 3.`);
-            } else {
-              alert(
-                `Has excedido el número de intentos permitidos. Tu transacción ha sido cancelada. Gracias por visitar Captain's Cache Hosting, ${customerName}.`
-              );
-              break;
-            }
-          }
+    if (customerEmail.match(emailFilter)) {
+      return true;
+    } else {
+      return false;
     }
   }
-
 
 //solicitar correo
 
 function closing () {
     if (confirmation) {
-        validateEmail(customerEmail);
+        customerEmail = prompt(`Para finalizar, por favor indique su correo para confirmar el pago y los datos de acceso a su cuenta en Captain's Cache Hosting`).toLocaleLowerCase();
+        while (true) {
+            if (validateEmail(customerEmail)) {
+                alert(`${customerName}, el correo ha sido enviado a ${customerEmail}. Gracias por tu compra!`);
+                break;
+            } else {
+                alert("Por favor, ingresa un correo válido.");
+            }
+        }
+    } else {
+        alert(`Tu transacción ha sido cancelada. Gracias por visitar Captain's Cache Hosting, ${customerName}.`);
     }
 }
 
